@@ -1,4 +1,4 @@
-package codksv.apirfds20242.Business.Category.ResponseObject;
+package codksv.apirfds20242.Service.Category.ResponseObject;
 
 public class ResponseGetData {
     public String name;
