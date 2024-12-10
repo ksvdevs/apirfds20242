@@ -1,6 +1,8 @@
 package codksv.apirfds20242.Business;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +33,25 @@ public class BusinessCategory {
 
         repoCategory.save(tCategory);
     }
+
+    public List<DtoCategory> getAll() {
+
+		List<TCategory> listTCategory = repoCategory.findAll();
+		List<DtoCategory> listDtoCategory = new ArrayList<>(); 
+
+		for (TCategory item : listTCategory) {
+			DtoCategory dtoCategory = new DtoCategory();
+
+			dtoCategory.setIdcategory(item.getIdcategory()); 
+            dtoCategory.setName(item.getName()); 
+			dtoCategory.setDescription(item.getDescription());
+			dtoCategory.setStatus(item.isState());
+            dtoCategory.setCreatedAt(item.getCreatedAt());
+            dtoCategory.setUpdatedAt(item.getUpdatedAt());
+
+			listDtoCategory.add(dtoCategory); 
+		}
+
+		return listDtoCategory;
+	}
 }
