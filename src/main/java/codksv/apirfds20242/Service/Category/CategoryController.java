@@ -1,7 +1,5 @@
 package codksv.apirfds20242.Service.Category;
 
-import java.text.SimpleDateFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +28,7 @@ public class CategoryController {
         return new ResponseEntity<>(responseGetData, HttpStatus.OK);
     } 
 
-    	@PostMapping(path = "insert", consumes = "multipart/form-data")
+    @PostMapping(path = "insert", consumes = "multipart/form-data")
 	public ResponseEntity<String> insert(@ModelAttribute RequestInsert request) {
 		try {
 
