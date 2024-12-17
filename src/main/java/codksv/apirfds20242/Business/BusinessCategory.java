@@ -3,6 +3,7 @@ package codksv.apirfds20242.Business;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,4 +55,15 @@ public class BusinessCategory {
 
 		return listDtoCategory;
 	}
+
+    public boolean delete(String idcategory) {
+        Optional<TCategory> tCategory = repoCategory.findById(idcategory);
+        
+        if (tCategory.isPresent()) {
+            repoCategory.deleteById(idcategory);
+        }
+    
+        return true;
+    }
+    
 }

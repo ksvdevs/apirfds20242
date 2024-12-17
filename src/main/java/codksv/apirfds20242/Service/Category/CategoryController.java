@@ -7,8 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,7 +55,7 @@ public class CategoryController {
 	}
 
 	@GetMapping(path = "getall")
-	public ResponseEntity<ResponseGetAll> getAll() { 
+	public ResponseEntity<ResponseGetAll> getAll() {
 		ResponseGetAll responseGetAll = new ResponseGetAll();
 
 		List<DtoCategory> listDtoCategory = businessCategory.getAll();
@@ -71,5 +73,12 @@ public class CategoryController {
 			responseGetAll.dto.listCategory.add(map);
 		}
 		return new ResponseEntity<>(responseGetAll, HttpStatus.OK);
+	}
+
+	@DeleteMapping(path = "delete/{idCategory}")
+	public ResponseEntity<Boolean> delete(@PathVariable String idCategory) {
+		businessCategory.delete(idCategory);
+
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 }
