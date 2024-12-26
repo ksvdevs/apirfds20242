@@ -13,16 +13,19 @@ import codksv.apirfds20242.Dto.DtoCategory;
 import codksv.apirfds20242.Entity.TCategory;
 import codksv.apirfds20242.Repository.RepoCategory;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class BusinessCategory {
     @Autowired
     private RepoCategory repoCategory;
 
+    @Transactional
     public void insert(DtoCategory dtoCategory) {
 
         dtoCategory.setIdcategory(UUID.randomUUID().toString());
         dtoCategory.setCreatedAt(new Date());
-		dtoCategory.setUpdatedAt(new Date());
+        dtoCategory.setUpdatedAt(new Date());
 
         TCategory tCategory = new TCategory();
         tCategory.setIdcategory(dtoCategory.getIdcategory());
@@ -37,33 +40,52 @@ public class BusinessCategory {
 
     public List<DtoCategory> getAll() {
 
-		List<TCategory> listTCategory = repoCategory.findAll();
-		List<DtoCategory> listDtoCategory = new ArrayList<>(); 
+        List<TCategory> listTCategory = repoCategory.findAll();
+        List<DtoCategory> listDtoCategory = new ArrayList<>();
 
-		for (TCategory item : listTCategory) {
-			DtoCategory dtoCategory = new DtoCategory();
+        for (TCategory item : listTCategory) {
+            DtoCategory dtoCategory = new DtoCategory();
 
-			dtoCategory.setIdcategory(item.getIdcategory()); 
-            dtoCategory.setName(item.getName()); 
-			dtoCategory.setDescription(item.getDescription());
-			dtoCategory.setStatus(item.isState());
+            dtoCategory.setIdcategory(item.getIdcategory());
+            dtoCategory.setName(item.getName());
+            dtoCategory.setDescription(item.getDescription());
+            dtoCategory.setStatus(item.isState());
             dtoCategory.setCreatedAt(item.getCreatedAt());
             dtoCategory.setUpdatedAt(item.getUpdatedAt());
 
-			listDtoCategory.add(dtoCategory); 
-		}
+            listDtoCategory.add(dtoCategory);
+        }
 
-		return listDtoCategory;
-	}
+        return listDtoCategory;
+    }
 
+    @Transactional
+    public boolean update(DtoCategory dtoCategory) {
+
+        Optional<TCategory> tCategorys = repoCategory.findById(dtoCategory.getIdcategory());
+
+        if (!tCategorys.isPresent()) {
+            return false;
+        }
+
+        TCategory tCategory = tCategorys.get();
+        tCategory.setName(dtoCategory.getName());
+        tCategory.setDescription(dtoCategory.getDescription());
+        tCategory.setState(dtoCategory.isStatus());
+        tCategory.setUpdatedAt(new Date());
+        repoCategory.save(tCategory);
+
+        return true;
+    }
+
+    @Transactional
     public boolean delete(String idcategory) {
         Optional<TCategory> tCategory = repoCategory.findById(idcategory);
-        
+
         if (tCategory.isPresent()) {
             repoCategory.deleteById(idcategory);
         }
-    
+
         return true;
     }
-    
 }
