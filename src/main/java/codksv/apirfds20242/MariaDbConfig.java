@@ -16,6 +16,7 @@ public class MariaDbConfig {
 
 		try {
 			dataSource.setUrl("jdbc:mariadb://localhost:3306/dbtienda");
+
 			dataSource.setUser("root");
 			dataSource.setPassword("");
             System.out.println("conectado");

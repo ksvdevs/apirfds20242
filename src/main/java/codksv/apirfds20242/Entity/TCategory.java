@@ -1,6 +1,7 @@
 package codksv.apirfds20242.Entity;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Table(name = "tcategory")
 @Getter
 @Setter
-public class TCategory {
+public class TCategory implements Serializable {
     @Id
     @Column(name = "idcategory")
     private String idcategory;
@@ -25,7 +26,7 @@ public class TCategory {
     private String description;
 
     @Column(name = "state")
-    private Boolean state;
+    private boolean state;
     
     @Column(name = "createdAt")
     private Date createdAt;
