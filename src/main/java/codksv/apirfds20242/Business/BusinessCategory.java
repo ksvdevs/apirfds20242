@@ -21,22 +21,22 @@ public class BusinessCategory {
     private RepoCategory repoCategory;
 
     @Transactional
-    public void insert(DtoCategory dtoCategory) {
-
-        dtoCategory.setIdcategory(UUID.randomUUID().toString());
+	public void insert(DtoCategory dtoCategory) {
+		dtoCategory.setIdcategory(UUID.randomUUID().toString());
         dtoCategory.setCreatedAt(new Date());
         dtoCategory.setUpdatedAt(new Date());
 
-        TCategory tCategory = new TCategory();
-        tCategory.setIdcategory(dtoCategory.getIdcategory());
+		TCategory tCategory = new TCategory();
+
+		tCategory.setIdcategory(dtoCategory.getIdcategory());
         tCategory.setName(dtoCategory.getName());
         tCategory.setDescription(dtoCategory.getDescription());
         tCategory.setState(dtoCategory.isStatus());
-        tCategory.setCreatedAt(dtoCategory.getCreatedAt());
-        tCategory.setUpdatedAt(dtoCategory.getUpdatedAt());
+		tCategory.setCreatedAt(dtoCategory.getCreatedAt());
+		tCategory.setUpdatedAt(dtoCategory.getUpdatedAt());
 
-        repoCategory.save(tCategory);
-    }
+		repoCategory.save(tCategory);
+	}
 
     public List<DtoCategory> getAll() {
 

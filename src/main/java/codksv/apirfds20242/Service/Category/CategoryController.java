@@ -1,5 +1,6 @@
 package codksv.apirfds20242.Service.Category;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +49,10 @@ public class CategoryController {
 	}
 
 	@PostMapping(path = "insert", consumes = "multipart/form-data")
-	public ResponseEntity<ResponseInsert> insert(@Valid @ModelAttribute RequestInsert request, BindingResult bindingResult) {
+	public ResponseEntity<ResponseInsert> insert(@Valid @ModelAttribute RequestInsert request,
+			BindingResult bindingResult) {
 		ResponseInsert response = new ResponseInsert();
+
 		try {
 			if (bindingResult.hasErrors()) {
 				bindingResult.getAllErrors().forEach(error -> {
@@ -66,12 +69,15 @@ public class CategoryController {
 			dtoCategory.setStatus(request.isState());
 
 			businessCategory.insert(dtoCategory);
+
 			response.mo.addResponseMesssage("Registro realizado correctamente");
 			response.mo.setSuccess();
 		} catch (Exception e) {
-			response.mo.addResponseMesssage("Ocurrió un error inesperado");
+			response.mo.addResponseMesssage(
+					"Ocurrió un error inesperado, estamos trabajando para resolvero. Gracias por su paciencia.");
 			response.mo.setException();
 		}
+
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
