@@ -1,6 +1,5 @@
 package codksv.apirfds20242.Service.Category;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,7 +93,7 @@ public class CategoryController {
 				map.put("idcategory", item.getIdcategory());
 				map.put("name", item.getName());
 				map.put("description", item.getDescription());
-				map.put("state ", item.isStatus());
+				map.put("state", item.isStatus());
 				map.put("createdAt", item.getCreatedAt());
 				map.put("updatedAt", item.getUpdatedAt());
 	
@@ -145,7 +144,11 @@ public class CategoryController {
 	public ResponseEntity<ResponseDelete> delete(@PathVariable String idCategory) {
 		ResponseDelete response = new ResponseDelete();
 		try {
-			businessCategory.delete(idCategory);
+			boolean delete = businessCategory.delete(idCategory);
+			if (delete) {
+				response.mo.addResponseMesssage("No se encontró el registro para eliminar.");
+				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+			}
 			response.mo.addResponseMesssage("Eliminación realizada correctamente");
 			response.mo.setSuccess();
 		} catch (Exception e) {

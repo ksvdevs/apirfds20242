@@ -84,6 +84,7 @@ public class BusinessCategory {
 
         if (tCategory.isPresent()) {
             repoCategory.deleteById(idcategory);
+            return false;
         }
 
         return true;
