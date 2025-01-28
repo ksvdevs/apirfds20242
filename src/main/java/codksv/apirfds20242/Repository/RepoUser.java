@@ -10,6 +10,6 @@ import codksv.apirfds20242.Entity.TUser;
 
 @Repository
 public interface RepoUser extends JpaRepository<TUser, String> {
-    @Query(value = "select * from tuser where nameUser=:userName and password=:password;", nativeQuery=true)
-	Optional<TUser> getLogin(String userName, String password);
+    @Query(value = "select * from tuser where email = :email", nativeQuery = true)
+	Optional<TUser> getByEmail(String email);
 }

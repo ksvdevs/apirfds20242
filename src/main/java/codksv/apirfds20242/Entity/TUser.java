@@ -22,6 +22,9 @@ public class TUser implements Serializable {
     @Column(name = "nameUser")
     private String nameUser;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "password")
     private String password;
 

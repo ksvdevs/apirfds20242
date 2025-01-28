@@ -41,6 +41,7 @@ public class UserController {
 
 				map.put("idUser", item.getIdUser());
 				map.put("nameUser", item.getNameUser());
+				map.put("email", item.getEmail());
 				map.put("password", item.getPassword());
 				map.put("createdAt", item.getCreatedAt());
 				map.put("updatedAt", item.getUpdatedAt());
@@ -73,6 +74,7 @@ public class UserController {
 			DtoUser dtoUser = new DtoUser();
 
 			dtoUser.setNameUser(request.getNameUser());
+			dtoUser.setEmail(request.getEmail());
 			dtoUser.setPassword(request.getPassword());
 			businessUser.insert(dtoUser);
 
@@ -92,13 +94,14 @@ public class UserController {
 		ResponseLogin response = new ResponseLogin();
 
 		try {
-			DtoUser dtoUser = businessUser.login(request.getNameUser(), request.getPassword());
+			DtoUser dtoUser = businessUser.login(request.getEmail(), request.getPassword());
 
 			if (dtoUser != null) {
 				Map<String, Object> map = new HashMap<>();
 
 				map.put("idUser", dtoUser.getIdUser());
 				map.put("nameUser", dtoUser.getNameUser());
+				map.put("email", dtoUser.getEmail());
 				map.put("createdAt", dtoUser.getCreatedAt());
 				map.put("updatedAt", dtoUser.getUpdatedAt());
 
